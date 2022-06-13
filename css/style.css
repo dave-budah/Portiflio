@@ -221,6 +221,52 @@ header.sticky .navbar {
 .nav-items a:hover {
     color: var(--second-color);
 }
+/** Spinner***/
+#spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loader-wrapper {
+    width: 60px;
+    height: 60px;
+}
+.loader {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 5px solid #2f5175;
+    border-top-color: #9ec438;
+    border-bottom-color: #1b334b ;
+    animation: rotate 5s linear infinite;
+}
+.loader-inner {
+    border-top-color: #36f372;
+    border-bottom-color: #4d85c1;
+    animation: 2.5s;
+}
+@keyframes rotate {
+    0% {
+        transform: scale(1) rotate(360deg);
+    }
+    50% {
+        transform: scale(.8) rotate(-360deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+/** End Spinner***/
+
+
 /**** Home Section *****/
 .home {
     position: relative;
@@ -306,8 +352,19 @@ color: var(--hover-color);
 .home .scroll-down span {
     color: var(--second-color);
     font-size: 1.2em;
+    display: block;
+    animation: move-wheel 1s linear infinite;
 }
-
+@keyframes move-wheel {
+    0% {
+        opacity: 0;
+        transform: translateY(-1rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(1rem);
+    }
+}
 @keyframes arrow-down {
     0% {
         transform: translateY(0);
@@ -1203,9 +1260,27 @@ footer a {
     cursor: pointer;
     margin: 20px auto;
 }
-/*** Article Detail Page ***/
-/* .75rem small font 1rem medium */
-/*** Login & Register Page ***/
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 30px;
+}
+.pagination a {
+    background: var(--second-color);
+    color: #fff;
+    font-size: var(--medium-font);
+    display: flex;
+    font-weight: 300;
+    padding: 10px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    box-shadow: none;
+    border: none;
+}
 .reg-form,
 .login-form {
     width: 100%;
@@ -1468,6 +1543,10 @@ footer a {
     .article_hero .article_hero_content h1 {
         font-size: 2em;
         font-weight: 600;
+    }
+    .article_hero .article_hero_content a {
+        font-weight: 300;
+        color: #fff !important;
     }
     .related_articles_container {
         margin-left: -10px;

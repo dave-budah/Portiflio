@@ -7,7 +7,7 @@
         </div>
         <div class="hr"></div>
         <div class="info group">
-            <h3>More</h3>
+            <h3>Quick Links</h3>
             <ul>
                 <li><a href="index.php#skills">Skills</a></li>
                 <li><a href="index.php#services">Service</a></li>

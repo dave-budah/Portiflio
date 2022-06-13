@@ -45,6 +45,7 @@ include_once 'admin/includes/dbh.inc.php';
 <body>
 <?php
  include 'partials/navbar.php';
+ include 'partials/spinner.php';
 ?>
 
 <!-- Scroll to top -->

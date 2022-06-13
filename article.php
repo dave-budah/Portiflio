@@ -8,11 +8,16 @@
  * Email: selvigtech@gmail.com
  * @var $conn;
  */
+$user_ip=$_SERVER['REMOTE_ADDR'];
 session_start();
 include_once 'admin/includes/dbh.inc.php';
+
+
+
+global $totalviews;
 if (isset($_GET['postid'])) {
     $id = $_GET['postid'];
-    $sql = "SELECT * FROM posts WHERE post_id = $id";
+    $sql = "SELECT * FROM posts WHERE post_id = '$id'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     $title = $row['title'];
@@ -20,6 +25,24 @@ if (isset($_GET['postid'])) {
     $tags = $row['tags'];
     $date = $row['created_at'];
     $image = $row['image'];
+    $link = $row['credit_link'];
+    $credit = $row['credit'];
+
+//    Check if user has already viewed the post
+    $sql = "SELECT * FROM views WHERE post_id = '$id' AND user_ip = '$user_ip'";
+    $result = mysqli_query($conn, $sql);
+    $resultCheck = mysqli_num_rows($result);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $post_id = $row['post_id'];
+        $user_ip = $row['user_ip'];
+        $totalviews = $row['totalviews'];
+    }
+    if ($resultCheck == 0) {
+        $totalviews++;
+        $sql = "INSERT INTO views (post_id, user_ip, totalviews) VALUES ('$id', '$user_ip', '$totalviews')";
+        $sql2 = "UPDATE views SET totalviews = '$totalviews' WHERE post_id = '$id' AND user_ip = '$user_ip'";
+        mysqli_query($conn, $sql);
+    }
 }
 
 global $image;
@@ -27,6 +50,8 @@ global $title;
 global $content;
 global $tags;
 global $postid;
+global $link;
+global $credit;
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +98,7 @@ global $postid;
 <body>
 <?php
 include 'partials/navbar.php';
+include 'partials/spinner.php';
 ?>
 
 <!-- Scroll to top -->
@@ -103,9 +129,36 @@ include 'partials/navbar.php';
 <div class="article_hero_content">
     <h1><?php echo $title; ?></h1>
     <p><?php echo date("d M Y", strtotime($date)) ?></p>
+    <p class="views_count">
+        <i class="fas fa-eye"></i>
+        <span><?php
+        $sql = "SELECT * FROM views WHERE post_id = '$id'";
+        $result = mysqli_query($conn, $sql);
+        $resultCheck = mysqli_num_rows($result);
+            ?>
+            <?php echo $resultCheck; ?>
+        </span>
+    </p>
+    <a href="<?php echo $link; ?>" target="_blank">Photo by: <?php echo $credit; ?></a>
 </div>
 </section>
+<?php
+if (isset($_GET['postid'])) {
+$id = $_GET['postid'];
+$sql = "SELECT * FROM posts WHERE post_id = '$id'";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$title = $row['title'];
+$content = $row['body'];
+$tags = $row['tags'];
+$date = $row['created_at'];
+$image = $row['image'];
+$link = $row['credit_link'];
+$credit = $row['credit'];
+}
+?>
 <section class="article_content section" id="article">
+
     <div class="article_content_container">
         <div class="article_content_text">
             <?php echo strip_tags($row['body']); ?>
@@ -192,17 +245,27 @@ include 'partials/navbar.php';
             }
 
             ?>
-
-            <button class="load-more">Load More</button>
+             <button class="load-more">Load More</button>
             <input type="hidden" id="row" value="0">
             <input type="hidden" id="postid" name="postid" value="<?php echo $postid; ?>">
             <input type="hidden" id="all" value="<?php echo $allcount; ?>">
+<!--            --><?php
+//            if($allcount > $rowsperpage) {
+//            echo '<div class="pagination">';
+//            $pages = ceil($allcount / $rowsperpage);
+//            for ($i = 1; $i <= $pages; $i++) {
+//                echo '<a class="pagination" href="article.php?postid=' . $postid . '&page=' . $i . '">' . $i . '</a>';
+//            }
+//            echo '</div>';
+//            }
+//            ?>
+
         </div>
 
 
         <div class="comment_form">
-            <h4 class="comment_form_title">Leave a comment</h4>
             <form action="" id="comment_form">
+                <h4 class="comment_form_title">Leave a comment</h4>
                 <input type="hidden" name="postid" value="<?php echo $postid; ?>">
                <input type="text" name="comment_author" placeholder="Your name">
                <input type="text" name="comment_email" placeholder="Your email">
