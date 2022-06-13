@@ -1,3 +1,17 @@
+<?php
+/**
+ * Created by Dave Budah.
+ * User: Dave Budah
+ * Date: 01/06/2022
+ * Time: 08:03
+ * Blog: https://selviltech.com
+ * @var $conn;
+ */
+session_start();
+include_once 'admin/includes/dbh.inc.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,14 +19,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Home</title>
-    <meta name="description" content="A simple HTML5 Template for new projects.">
+    <meta name="description" content="Selvigtech is a startup company that specialises in web, web app and mobile app development.">
     <meta name="author" content="SitePoint">
 
-    <meta property="og:title" content="A Basic HTML5 Template">
+    <meta property="og:title" content="Selvigtech home page">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.example.com">
-    <meta property="og:description" content="A simple HTML5 Template for new projects.">
+    <meta property="og:url" content="https://www.selvigtech.com">
+    <meta property="og:description" content="We specialize in Web, Web Applications, and Mobile Applications development.">
     <meta property="og:image" content="image.png">
+    <link rel="canonical" href="https://www.selvigtech.com/index.php" />
 
     <link rel="icon" href="/favicon.png">
     <link rel="icon" href="/favicon.png" type="image/svg+xml">
@@ -28,27 +43,9 @@
           rel="stylesheet">
 </head>
 <body>
-<header>
-    <div class="navbar">
-        <a href="" class="logo">
-            <img src="images/logos/logo.png" alt="Selvigtech">
-        </a>
-        <div class="navigation">
-            <div class="nav-items">
-                <div class="nav-close-btn"></div>
-                <a class="active" href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#services">Services</a>
-                <a href="#portfolio">Portfolio</a>
-                <a href="#blog">Blog</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </div>
-        <div class="nav-menu-btn">
-        </div>
-    </div>
-</header>
+<?php
+ include 'partials/navbar.php';
+?>
 
 <!-- Scroll to top -->
 <div class="scrollToTop-btn flex-center">
@@ -64,20 +61,25 @@
         <i class="fas fa-moon"></i>
     </span>
 </div>
+<div class="whatsapp-btn flex-center">
+    <span class="whatsapp-link">
+        <a href="https://wa.link/m7j46r" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </span>
+</div>
 
 
 <section class="home flex-center" id="home">
     <div class="home-container">
         <div class="media-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.facebook.com/selvigtech" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.linkedin.com/in/selvigtech" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.twitter.com/selvigtech" target="_blank"><i class="fab fa-twitter"></i></a>
         </div>
         <div class="info">
             <h2>Hi, I'm <span>Dave Budah</span></h2>
             <h3>I'm a <span>Full Stack Developer</span></h3>
             <p>I create stunning websites for all kinds of business. Making use of modern
-                technology to accommodate almost every major device.</p>
+                technology to meet the client's needs.</p>
             <a href="#about" class="btn">Contact Me <i class="fa fa-arrow-circle-right"></i></a>
         </div>
         <div class="home-img">
@@ -102,10 +104,9 @@
                     <p>I am a full stack developer with a passion for creating beautiful and
                         intuitive websites. I have a strong background in web development and
                         have worked with a variety of technologies. I am currently working on
-                        improving my skills and expanding my knowledge in the field of mobile applications
-                        development.</p>
+                        improving my skills and expanding my knowledge in the field of cloud computing.</p>
                 </div>
-                <a href="" class="btn">Download CV <i class="fa fa-cloud-arrow-down"></i></a>
+                <a href="cv/davebudah.pdf" download class="btn">Download CV <i class="fa fa-cloud-arrow-down"></i></a>
             </div>
         </div>
     </div>
@@ -302,7 +303,7 @@
                         <div class="service-modal-body">
                             <span class="modal-close-btn"><i class="fas fa-times"></i></span>
                             <h3>Mobile App Dev</h3>
-                            <h4>What is UX Mobile App Dev?</h4>
+                            <h4>What is Mobile App Dev?</h4>
                             <p>Mobile app development is the creation of software intended to run on mobile devices and
                                 optimized to take advantage of those products’ unique features and hardware.</p>
                             <ul>
@@ -353,120 +354,39 @@
         <h2 class="section-title-02">Portfolio</h2>
         <div class="content">
             <div class="portfolio-list">
-                <div class="img-card-container">
+                <?php
+                  $sq = "SELECT * FROM projects ORDER BY project_id DESC LIMIT 6";
+                  $result = mysqli_query($conn, $sq);
+                  while($row = mysqli_fetch_assoc($result)){
+                    $project_id = $row['project_id'];
+                    $project_title = $row['title'];
+                    $project_image = $row['image'];
+                    $github_link = $row['link_one'];
+                    $website_link = $row['link_two'];
+                    $project_description =  substr($row['description'], 0, 50);
+
+                    echo '<div class="img-card-container">
                     <div class="img-card">
                         <div class="overlay"></div>
                         <div class="info">
-                            <h3>Web Design</h3>
-                            <span>YouTube</span>
+                            <h3>'.$row['title'].'</h3>
+                            <a href="'.$row['link_one'].'" target="_blank">Github</a>
+                            <a href="'.$row['link_two'].'" target="_blank">Visit Site</a>
                         </div>
-                        <img src="images/project-1.jpg" alt="">
+                        <img src="uploads/'.$row['image'].'" alt="'.$row['title'].'">
                     </div>
                     <div class="portfolio-modal flex-center">
                         <div class="portfolio-modal-body">
                             <span class="portfolio-close-btn"><i class="fa fa-times"></i></span>
-                            <h3>Web Design</h3>
-                            <img src="images/project-1.jpg" alt="">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Dignissimos hic, itaque laboriosam mollitia qui sint?</p>
+                            <h3>'.$row['title'].'</h3>
+                            <img src="uploads/'.$row['image'].'" alt="">
+                            <p>'.$row['description'].'</p>
                         </div>
                     </div>
-                </div>
-                <div class="img-card-container">
-                    <div class="img-card">
-                        <div class="overlay"></div>
-                        <div class="info">
-                            <h3>Web Design</h3>
-                            <span>YouTube</span>
-                        </div>
-                        <img src="images/project-1.jpg" alt="">
-                    </div>
-                    <div class="portfolio-modal flex-center">
-                        <div class="portfolio-modal-body">
-                            <span class="portfolio-close-btn"><i class="fa fa-times"></i></span>
-                            <h3>Web Design</h3>
-                            <img src="images/project-1.jpg" alt="">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Dignissimos hic, itaque laboriosam mollitia qui sint?</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-card-container">
-                    <div class="img-card">
-                        <div class="overlay"></div>
-                        <div class="info">
-                            <h3>Web Design</h3>
-                            <span>YouTube</span>
-                        </div>
-                        <img src="images/project-1.jpg" alt="">
-                    </div>
-                    <div class="portfolio-modal flex-center">
-                        <div class="portfolio-modal-body">
-                            <span class="portfolio-close-btn"><i class="fa fa-times"></i></span>
-                            <h3>Web Design</h3>
-                            <img src="images/project-1.jpg" alt="">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Dignissimos hic, itaque laboriosam mollitia qui sint?</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-card-container">
-                    <div class="img-card">
-                        <div class="overlay"></div>
-                        <div class="info">
-                            <h3>Web Design</h3>
-                            <span>YouTube</span>
-                        </div>
-                        <img src="images/project-1.jpg" alt="">
-                    </div>
-                    <div class="portfolio-modal flex-center">
-                        <div class="portfolio-modal-body">
-                            <span class="portfolio-close-btn"><i class="fa fa-times"></i></span>
-                            <h3>Web Design</h3>
-                            <img src="images/project-1.jpg" alt="">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Dignissimos hic, itaque laboriosam mollitia qui sint?</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-card-container">
-                    <div class="img-card">
-                        <div class="overlay"></div>
-                        <div class="info">
-                            <h3>Web Design</h3>
-                            <span>YouTube</span>
-                        </div>
-                        <img src="images/project-1.jpg" alt="">
-                    </div>
-                    <div class="portfolio-modal flex-center">
-                        <div class="portfolio-modal-body">
-                            <span class="portfolio-close-btn"><i class="fa fa-times"></i></span>
-                            <h3>Web Design</h3>
-                            <img src="images/project-1.jpg" alt="">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Dignissimos hic, itaque laboriosam mollitia qui sint?</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-card-container">
-                    <div class="img-card">
-                        <div class="overlay"></div>
-                        <div class="info">
-                            <h3>Web Design</h3>
-                            <span>YouTube</span>
-                        </div>
-                        <img src="images/project-1.jpg" alt="">
-                    </div>
-                    <div class="portfolio-modal flex-center">
-                        <div class="portfolio-modal-body">
-                            <span class="portfolio-close-btn"><i class="fa fa-times"></i></span>
-                            <h3>Web Design</h3>
-                            <img src="images/project-1.jpg" alt="">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Dignissimos hic, itaque laboriosam mollitia qui sint?</p>
-                        </div>
-                    </div>
-                </div>
+                </div>';
+                  }
+                ?>
+
             </div>
         </div>
     </div>
@@ -492,41 +412,36 @@
 <section class="section blog" id="blog">
     <div class="our-articles sub-section">
         <div class="container flex-center">
-            <h1 class="section-title-01">Our Blog</h1>
-            <h2 class="section-title-02">Our Blog</h2>
+            <h1 class="section-title-01">Articles</h1>
+            <h2 class="section-title-02">Articles</h2>
             <div class="content">
                 <div class="swiper blog-swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide flex-center">
-                            <div class="blog-img">
-                                <img src="images/blog-3.jpg" alt="">
-                            </div>
-                            <div class="blog-details">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos hic, itaque laboriosam mollitia qui sint?</p>
-                                <h3>Frontend dev guideline for beginners.</h3>
-                                <span>Schmidt <span class="spacer"></span> 22 May 2022</span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide flex-center">
-                            <div class="blog-img">
-                                <img src="images/project-2.jpg" alt="">
-                            </div>
-                            <div class="blog-details">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos hic, itaque laboriosam mollitia qui sint?</p>
-                                <h3>Best Vlogging setup.</h3>
-                                <span>Rene Friga <span class="spacer"></span> 12 April 2022</span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide flex-center">
-                            <div class="blog-img">
-                                <img src="images/project-1.jpg" alt="">
-                            </div>
-                            <div class="blog-details">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos hic, itaque laboriosam mollitia qui sint?</p>
-                                <h3>Getting started with frontend.</h3>
-                                <span>Davis Kyle <span class="spacer"></span> 22 May 2022</span>
-                            </div>
-                        </div>
+                        <?php
+
+
+                        $query = "SELECT * FROM posts ORDER BY post_id DESC LIMIT 3";
+                        $select_all_posts_query = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
+                            $post_id = $row['post_id'];
+                            $post_title = $row['title'];
+//                            $post_author = $row['author'];
+                            $post_date = $row['created_at'];
+                            $post_image = $row['image'];
+                            $post_content = substr($row['body'], 0, 150);
+                            ?>
+                            <a href="article.php?postid=<?php echo $post_id; ?>" class="swiper-slide flex-center">
+                                <div class="blog-img">
+                                    <img src="uploads/<?php echo $post_image; ?>" alt="<?php echo $post_title; ?>">
+                                </div>
+                                <div class="blog-details">
+                                    <p><?php echo strip_tags($post_content); ?></p>
+                                    <h3><?php echo $post_title; ?></h3>
+                                    <span>Schmidt <span class="spacer"></span> <?php echo date("d M Y", strtotime($post_date)) ?></span>
+                                </div>
+                            </a>
+                        <?php } ?>
+
 
                     </div>
                     <div class="swiper-button-next">
@@ -579,8 +494,9 @@
                         <div class="third-row">
                             <textarea name="message" id="" rows="7" class="form-control" placeholder="Message"></textarea>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group button-area">
                             <button class="btn" type="submit" name="submit">Send Message <i class="fa fa-paper-plane"></i></button>
+                            <p>The message is being sent...</p>
                         </div>
                     </form>
                 </div>
@@ -588,43 +504,12 @@
     </div>
 </section>
 
-<footer>
-    <div class="footer-container">
-        <div class="about group">
-            <h2>Selvigtech</h2>
-            <p>Full Stack Developer</p>
-            <a href="#about">About Me</a>
-        </div>
-        <div class="hr"></div>
-        <div class="info group">
-            <h3>More</h3>
-            <ul>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#services">Service</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-        <div class="hr"></div>
+<?php include "partials/footer.php"; ?>
 
-        <div class="follow group">
-            <h3>Follow Me</h3>
-            <ul>
-                <li><a href="https://www.facebook.com/selvigtech" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="https://www.instagram.com/selvigtech" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/selvigtech" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                <li><a href="https://www.twitter.com/selvigtech" target="_blank"><i class="fab fa-twitter"></i></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-copyright group">
-        <p> &copy; <script>document.write(new Date().getFullYear())</script> Selvigtech <span class="spacer"></span> All Rights Reserved</p>
-    </div>
-</footer>
-
+<script src="js/jquery.min.js"></script>
 <script src="js/swiper-bundle.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/contact.js"></script>
 <script src="js/fontawesome.all.min.js"></script>
 </body>
 </html>

@@ -155,3 +155,14 @@ ScrollReveal().reveal('.experience-card, .service-card, education, portfolio .im
 ScrollReveal().reveal('footer .group', {delay: 500, origin: 'top', interval: 200});
 
 
+window.addEventListener('scroll', function(){
+    const scrollPos = window.scrollY;
+    const whatsapp = document.querySelector('.whatsapp-btn');
+
+
+    if (scrollPos > whatsapp.offsetTop - 100) {
+        whatsapp.classList.add('active');
+    } else {
+        whatsapp.classList.remove('active');
+    }
+})
