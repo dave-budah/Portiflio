@@ -27,6 +27,7 @@ if(!empty($email) && !empty($password)){
             $_SESSION['role'] = $row['role'];
             $_SESSION['username'] = $row['name'];
             echo 'You are now logged in';
+            header('Location: ../index.php');
             exit();
         }
     } else {

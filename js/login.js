@@ -15,6 +15,7 @@ loginBtn.onclick = () => {
                 let data = xhr.response;
                 if (data === 'success') {
                     window.location.href = 'index.php';
+                    formLogin.reset();
                 } else {
                     errorMsg.textContent = data;
                     errorMsg.style.display = 'block';

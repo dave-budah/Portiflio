@@ -4,6 +4,7 @@ submitBtn = form.querySelector('.submitBtn button');
 form.onsubmit = (e) => {
     e.preventDefault();
 }
+
 submitBtn.onclick = () => {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '../comment.php', true);
@@ -12,8 +13,7 @@ submitBtn.onclick = () => {
             if (xhr.status === 200) {
                 let data = xhr.response;
                 if (data === 'success') {
-                    window.location.href = '../article.php';
-                    form.value = '';
+                    form.reset();
                 } else {
                     alert(data);
                 }

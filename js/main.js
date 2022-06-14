@@ -183,3 +183,22 @@ window.addEventListener('scroll', function(){
         whatsapp.classList.remove('active');
     }
 })
+
+// Character count
+const comment = document.getElementById("comment");
+const character_count = document.getElementById("character_count");
+let submitBtn = document.getElementById("submitBtn");
+comment.addEventListener("keyup", function() {
+    const count = this.value.length;
+    document.getElementById("character_count").innerHTML = count + "/500";
+    if (count > 500) {
+        document.getElementById("character_count").style.color = "red";
+        document.getElementById("character_count").style.fontSize = "12px";
+        document.getElementById("comment").style.borderColor = "red";
+        document.getElementById("comment").style.borderWidth = "2px";
+        submitBtn.disabled = true;
+    } else {
+        document.getElementById("character_count").style.color = "green";
+        document.getElementById("character_count").style.fontSize = "12px";
+    }
+});

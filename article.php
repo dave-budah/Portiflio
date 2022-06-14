@@ -169,6 +169,9 @@ $credit = $row['credit'];
             <h4>Tags</h4>
             <?php
             $tags = explode(",", $row['tags']);
+//            foreach ($tags as $tag) {
+//                echo '<a href="https://www.selvigtech.com/search.php?search=' . $tag . '">' . $tag . '</a>';
+//            }
             foreach ($tags as $tag) {
                 echo '<a href="tag.php?tag=' . $tag . '" class="tag_class">' . $tag . '</a>';
             }
@@ -262,7 +265,6 @@ $credit = $row['credit'];
 
         </div>
 
-
         <div class="comment_form">
             <form action="" id="comment_form">
                 <h4 class="comment_form_title">Leave a comment</h4>
@@ -270,9 +272,10 @@ $credit = $row['credit'];
                <input type="text" name="comment_author" placeholder="Your name">
                <input type="text" name="comment_email" placeholder="Your email">
                 <span>NB* Your email will never be published.</span>
-               <textarea name="comment_body" placeholder="Your comment"></textarea>
+               <textarea id="comment" name="comment_body" placeholder="Your comment"></textarea>
+                <p class="character_count" id="character_count"></p>
                 <div class="submitBtn">
-                    <button name="comment_submit">Submit</button>
+                    <button name="comment_submit" id="submitBtn">Submit</button>
                 </div>
             </form>
         </div>
@@ -323,5 +326,6 @@ $credit = $row['credit'];
 <script src="js/main.js"></script>
 <script src="js/comment.js"></script>
 <script src="js/fontawesome.all.min.js"></script>
+
 </body>
 </html>

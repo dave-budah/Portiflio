@@ -160,6 +160,64 @@ html {
     pointer-events: all;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
+/* Art dialog */
+.alertdialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+    display: none;
+}
+.alertdialog .dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+.alertdialog .dialog .title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #0e2431;
+    margin-bottom: 10px;
+}
+.alertdialog .dialog .content {
+    font-size: 1.2em;
+    color: #777;
+    margin-bottom: 10px;
+}
+.alertdialog .dialog .btn {
+    font-size: 1.2em;
+    padding: .5em 1em;
+    border-radius: 5px;
+    background: var(--second-color);
+    color: #fff;
+    cursor: pointer;
+    transition: all .5s;
+}
+.alertdialog .dialog .btn:hover {
+    background: var(--hover-color);
+}
+.alertdialog .dialog .btn:active {
+    background: var(--second-color);
+    color: #fff;
+}
+.alertdialog .dialog .btn:focus {
+    outline: none;
+}
+.alertdialog .dialog .btn:last-child {
+    margin-top: 10px;
+}
+/* Art dialog */
 body {
     color: var(--first-color);
     background: var(--body-bg-color);
@@ -176,7 +234,7 @@ header {
     transition: all 0.6s ease;
 }
 header.sticky {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--body-bg-color);
     box-shadow: var(--box-shadow);
 }
 .navbar {
@@ -1103,7 +1161,7 @@ footer a {
     color: var(--first-color);
 }
 .related_article_info {
-    padding: 5px;
+    padding: 5px 10px;
     color: var(--first-color);
 }
 /**** Comment Card *****/
