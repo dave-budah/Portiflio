@@ -640,6 +640,7 @@ color: var(--hover-color);
     position: relative;
     margin: 20px;
     max-width: 600px;
+    max-height: 70vh;
     background: var(--modal-bg-color);
     box-shadow: var(--box-shadow);
     border-radius: 10px;
@@ -661,8 +662,8 @@ color: var(--hover-color);
     font-size: 1.5em;
 }
 .portfolio-modal-body img {
-    width: 100%;
-    margin: 20px 0;
+    width: 70%;
+    margin: auto 15%;
     border-radius: 10px;
 }
 .portfolio-modal.active {
@@ -791,13 +792,18 @@ footer .spacer:after {
 .contact .container .content {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 2rem;
 
 }
+
 .contact-left h2 {
     font-size: 2.1em;
     font-weight: 800;
     margin-bottom: 40px;
+}
+.contact-list {
+    padding-left: 0;
 }
 .contact-list li {
     margin-bottom: 40px;
@@ -820,11 +826,7 @@ footer .spacer:after {
     color: var(--third-color);
     cursor: pointer;
 }
-.contact-right p {
-    color: var(--third-color);
-    font-size: 1.6em;
-    margin-bottom: 30px;
-}
+
 .contact-form input ,
 .contact-form textarea {
     padding: 15px 40px 40px 20px;
@@ -1065,6 +1067,8 @@ footer a {
     .contact-form .first-row input,
     .contact-form .third-row textarea {
         width: 100%;
+        height: 100%;
+
     }
     .contact-form input, .contact-form textarea {
          padding: 20px 10px;
