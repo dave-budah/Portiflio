@@ -91,26 +91,35 @@ window.addEventListener('scroll', () => {
 // Theme switcher
 const themeBtn = document.querySelector('.theme-btn');
 
-themeBtn.addEventListener('click', function(){
-    document.body.classList.toggle('dark');
-    themeBtn.classList.toggle('sun');
-
-    localStorage.setItem('theme', getCurrentTheme());
-    localStorage.setItem('themeBtn', getCurrentIcon());
-});
-const getCurrentTheme = () => {
-    return document.body.classList.contains('dark') ? 'dark' : 'light';
-};
-const getCurrentIcon = () => {
-    return themeBtn.classList.contains('sun') ? 'sun' : 'moon';
-};
-const currentTheme = localStorage.getItem('theme');
-const currentIcon = localStorage.getItem('themeBtn');
-
-if (currentTheme) {
-    document.body.classList[currentTheme === 'dark' ? 'add' : 'remove']('dark');
-    themeBtn.classList[currentIcon === 'sun' ? 'add' : 'remove']('sun');
+function getCurrentThem() {
+    let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    localStorage.getItem('selvigtech.theme') ? theme = localStorage.getItem('selvigtech.theme') : null;
+    return theme;
 }
+
+function loadTheme(theme) {
+    const root = document.querySelector(':root');
+    if (theme === 'light'){
+        themeBtn.innerHTML = `<i class="bi bi-moon-stars"></i>`;
+    } else {
+        themeBtn.innerHTML = `<i class="bi bi-brightness-high"></i>`;
+    }
+
+    root.setAttribute('color-scheme', `${theme}`);
+}
+themeBtn.addEventListener('click', () => {
+    let theme = getCurrentThem();
+    if (theme === 'dark'){
+        theme = 'light';
+    } else {
+        theme = 'dark';
+    }
+    localStorage.setItem('selvigtech.theme', `${theme}`);
+    loadTheme(theme);
+})
+window.addEventListener('DOMContentLoaded', () => {
+    loadTheme(getCurrentThem());
+})
 
 //Responsive Navigation
 const menuBtn = document.querySelector('.nav-menu-btn');
@@ -120,9 +129,11 @@ const navItems = document.querySelectorAll('.navigation a');
 
 menuBtn.addEventListener('click', function(){
     nav.classList.add('active');
+    nav.innerHTML = '  <i class="bi bi-list"></i>';
 });
 closeBtn.addEventListener('click', function(){
     nav.classList.remove('active');
+    nav.innerHTML = '<i class="bi bi-x-lg"></i>';
 });
 navItems.forEach(function(navItem){
     navItem.addEventListener('click', function(){
@@ -144,14 +155,39 @@ window.sr = ScrollReveal({
         domEl.classList.add('animated');
     }
 });
-ScrollReveal().reveal('.home .info h2, .section-title-01, .section-title-02', {delay: 500, origin: 'left', distance: '100px'});
+ScrollReveal().reveal('.home .info h2, .section-title-01, .section-title-02, .mobile-app', {delay: 500, origin: 'left', distance: '100px'});
 ScrollReveal().reveal('.home .info h3, .home .info p, .about-info .btn', {delay: 600, origin: 'right', distance: '100px'});
 ScrollReveal().reveal('.home .info .btn', {delay: 700, origin: 'bottom', distance: '100px'});
 ScrollReveal().reveal('.media-icons a, .contact-list li', {delay: 500, origin: 'left', distance: '100px', interval: 200});
-ScrollReveal().reveal('.home-img, .about-img', {delay: 500, origin: 'bottom', distance: '100px'});
-ScrollReveal().reveal('.about-description, .contact-right', {delay: 600, origin: 'right', distance: '100px'});
+ScrollReveal().reveal('.home-img, .about-img, .webdev', {delay: 500, origin: 'bottom', distance: '100px'});
+ScrollReveal().reveal('.about-description, .contact-right, .ux-ui', {delay: 600, origin: 'right', distance: '100px'});
 ScrollReveal().reveal('.skills-description, .services-description, .contact-card, .blog-swiper, .contact-left h2', {delay: 700, origin: 'right', distance: '100px'});
-ScrollReveal().reveal('.experience-card, .service-card, education, portfolio .img-card', {delay: 800, origin: 'bottom', distance: '100px', interval: 200});
+ScrollReveal().reveal('.experience-card, .service-card, portfolio .img-card', {delay: 800, origin: 'bottom', distance: '100px', interval: 200});
 ScrollReveal().reveal('footer .group', {delay: 500, origin: 'top', interval: 200});
 
+document.onreadystatechange = function () {
+    var state = document.readyState
+    if (state === 'interactive') {
+        document.getElementById('body').style.visibility="hidden";
+    } else if (state === 'complete') {
+        setTimeout(function(){
+            document.getElementById('interactive');
+            document.getElementById('loader-wrapper').style.visibility="hidden";
+            document.getElementById('body').style.visibility="visible";
+        },1000);
+    }
+}
 
+function copy(copyId) {
+    let inputElement = document.createElement("input");
+    inputElement.type = "text";
+    inputElement.value = document.getElementById(copyId).innerHTML;
+    document.body.appendChild(inputElement);
+    inputElement.select();
+    document.execCommand('copy');
+    document.body.removeChild(inputElement);
+    document.getElementById("info-toast").style.display = "block";
+    setTimeout(function (){
+        document.getElementById("info-toast").style.display = "none";
+    }, 2000);
+}
