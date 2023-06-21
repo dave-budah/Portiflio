@@ -1,5 +1,5 @@
 window.addEventListener('scroll', function() {
-    var scroll = window.scrollY;
+    const scroll = window.scrollY;
     const header = document.querySelector('header');
    header.classList.toggle('sticky', scroll > 0);
 });
@@ -9,7 +9,7 @@ const serviceModal = document.querySelectorAll('.service-modal');
 const learnMore = document.querySelectorAll('.learn-more-btn');
 const modalClose = document.querySelectorAll('.modal-close-btn');
 
-var modal = function (modalClick){
+const modal = function (modalClick){
     serviceModal[modalClick].classList.add('active');
 }
 learnMore.forEach(function(learnMore, index){
@@ -27,7 +27,7 @@ const portfolioModals = document.querySelectorAll('.portfolio-modal');
 const imgCards = document.querySelectorAll('.img-card');
 const portfolioModalCloses = document.querySelectorAll('.portfolio-close-btn');
 
-var portfolioModal = function (modalClick){
+const portfolioModal = function (modalClick){
     portfolioModals[modalClick].classList.add('active');
 }
 imgCards.forEach(function(imgCard, index){
@@ -41,20 +41,6 @@ portfolioModalCloses.forEach(function(portfolioModalClose, index){
     });
 });
 
-// Blog Javascript
-const swiper = new Swiper(".blog-swiper", {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    loop: true,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-});
 // Scroll to top
 const scrollToTop = document.querySelector('.scrollToTop-btn');
 window.addEventListener('scroll', function(){
@@ -91,7 +77,7 @@ window.addEventListener('scroll', () => {
 // Theme switcher
 const themeBtn = document.querySelector('.theme-btn');
 
-function getCurrentThem() {
+function getCurrentTheme() {
     let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     localStorage.getItem('selvigtech.theme') ? theme = localStorage.getItem('selvigtech.theme') : null;
     return theme;
@@ -108,7 +94,7 @@ function loadTheme(theme) {
     root.setAttribute('color-scheme', `${theme}`);
 }
 themeBtn.addEventListener('click', () => {
-    let theme = getCurrentThem();
+    let theme = getCurrentTheme();
     if (theme === 'dark'){
         theme = 'light';
     } else {
@@ -118,7 +104,7 @@ themeBtn.addEventListener('click', () => {
     loadTheme(theme);
 })
 window.addEventListener('DOMContentLoaded', () => {
-    loadTheme(getCurrentThem());
+    loadTheme(getCurrentTheme());
 })
 
 //Responsive Navigation
@@ -129,11 +115,9 @@ const navItems = document.querySelectorAll('.navigation a');
 
 menuBtn.addEventListener('click', function(){
     nav.classList.add('active');
-    nav.innerHTML = '  <i class="bi bi-list"></i>';
 });
 closeBtn.addEventListener('click', function(){
     nav.classList.remove('active');
-    nav.innerHTML = '<i class="bi bi-x-lg"></i>';
 });
 navItems.forEach(function(navItem){
     navItem.addEventListener('click', function(){
@@ -166,7 +150,7 @@ ScrollReveal().reveal('.experience-card, .service-card, portfolio .img-card', {d
 ScrollReveal().reveal('footer .group', {delay: 500, origin: 'top', interval: 200});
 
 document.onreadystatechange = function () {
-    var state = document.readyState
+    const state = document.readyState
     if (state === 'interactive') {
         document.getElementById('body').style.visibility="hidden";
     } else if (state === 'complete') {
