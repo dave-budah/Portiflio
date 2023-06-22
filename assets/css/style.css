@@ -194,7 +194,7 @@ body {
     transition: all 0.5s ease;
 }
 header {
-    z-index: 9999;
+    z-index: 1024;
     width: 100%;
     position: fixed;
     top: 0;
