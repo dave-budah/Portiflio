@@ -1289,7 +1289,7 @@ footer a {
         max-height: 250px;
         width: 100%;
         height: 100%;
-        transform: translate(40px, -140px);
+        transform: translate(40px, -180px);
     }
     .home .home-container .info {
         font-size: .8rem;
