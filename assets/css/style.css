@@ -307,6 +307,7 @@ header.sticky .navbar .logo {
     color: var(--third-color);
     font-size: var(--medium-font);
     max-width: 350px;
+    line-height: 2;
 }
 .btn {
     background: var(--second-color);
@@ -518,6 +519,7 @@ header.sticky .navbar .logo {
     margin-bottom: 15px;
     padding-bottom: 25px;
     border-bottom: 2px solid var(--line-color);
+    line-height: 2;
 }
 /**** Skills Section ****/
 .skills .container .content {
