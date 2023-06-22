@@ -113,7 +113,7 @@ pre {
 
     --image-filter: contrast(200%);
 
-    --font-family: 'CabinetGrotesk-Thin', sans-serif;
+    --font-family: 'CabinetGrotesk-Medium', sans-serif;
 }
 [color-scheme="light"] {
     --first-color: #0e2431;
