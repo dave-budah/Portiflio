@@ -166,7 +166,7 @@ pre {
 }
 /**** Theme Btn ****/
 .theme-btn {
-    z-index: 1040;
+    z-index: 1024;
     position: fixed;
     right: 0;
     top: 100px;
@@ -265,6 +265,10 @@ header.sticky .navbar .logo {
     padding: 4rem 2rem;
     flex-direction: column;
 }
+.home-container {
+    width: 100%;
+    margin: auto;
+}
 .home-container .media-icons {
     display: flex;
     flex-direction: column;
@@ -307,6 +311,7 @@ header.sticky .navbar .logo {
     color: var(--third-color);
     font-size: var(--medium-font);
     max-width: 350px;
+    width: 100%;
     line-height: 2;
 }
 .btn {
@@ -1008,10 +1013,11 @@ header.sticky .navbar .logo {
     width: 50%;
 }
 .contact .content .contact-form form {
+    max-width: 400px;
     width: 100%;
+    margin: 0 auto;
     padding: 2rem 2rem 2rem .7rem;
     border-radius: 20px;
-    border: 1px solid var(--line-color);
 }
 .contact .content .contact-form form .form-group {
     width: 100%;
@@ -1265,6 +1271,18 @@ footer a {
     body {
         margin: 5rem 0 0 0;
     }
+    .home {
+        padding: 4rem 0;
+    }
+    .home-container {
+        width: 90%;
+        padding: 2rem;
+        margin-left: -1rem;
+    }
+    .home-container .info p {
+        max-width: 320px;
+        width: 100%;
+    }
     .home-container .info h2 {
         font-size: 2em;
     }
@@ -1338,6 +1356,7 @@ footer a {
     .contact .content .contact-form form .form-group input {
     }
 }
+/* pre-loader */
 .loader {
     width: 48px;
     height: 48px;
